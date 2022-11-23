@@ -1,0 +1,37 @@
+﻿@model MagazadbMVC.Models.Kargo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Mağazalar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KargoAd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KargoAd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UrunNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UrunNo)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    }
+</div>
+

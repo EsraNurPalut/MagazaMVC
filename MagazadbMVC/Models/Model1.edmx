@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Magaza1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kargo">
+          <Key>
+            <PropertyRef Name="KargoNo" />
+          </Key>
+          <Property Name="KargoNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KargoAd" Type="varchar" MaxLength="50" />
+          <Property Name="UrunNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Magaza">
+          <Key>
+            <PropertyRef Name="MagazaNo" />
+          </Key>
+          <Property Name="MagazaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MagazaAd" Type="varchar" MaxLength="50" />
+          <Property Name="MagazaAdres" Type="varchar" MaxLength="50" />
+          <Property Name="MagazaTelefon" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="MusteriNo" />
+          </Key>
+          <Property Name="MusteriNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriAd" Type="varchar" MaxLength="50" />
+          <Property Name="MusteriAdres" Type="varchar" MaxLength="50" />
+          <Property Name="UrunNo" Type="int" />
+          <Property Name="MagazaNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Personeller">
+          <Key>
+            <PropertyRef Name="PersonelNo" />
+          </Key>
+          <Property Name="PersonelNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonelAd" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelAdres" Type="varchar" MaxLength="50" />
+          <Property Name="PersonelTelefon" Type="varchar" MaxLength="50" />
+          <Property Name="MagazaNo" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="UrunNo" />
+          </Key>
+          <Property Name="UrunNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunAd" Type="varchar" MaxLength="50" />
+          <Property Name="UrunAdet" Type="int" />
+          <Property Name="UrunMarka" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Kargo_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="0..1" />
+          <End Role="Kargo" Type="Self.Kargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="UrunNo" />
+            </Principal>
+            <Dependent Role="Kargo">
+              <PropertyRef Name="UrunNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_Magaza">
+          <End Role="Magaza" Type="Self.Magaza" Multiplicity="0..1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magaza">
+              <PropertyRef Name="MagazaNo" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="MagazaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="0..1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="UrunNo" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="UrunNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personeller_Magaza">
+          <End Role="Magaza" Type="Self.Magaza" Multiplicity="0..1" />
+          <End Role="Personeller" Type="Self.Personeller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magaza">
+              <PropertyRef Name="MagazaNo" />
+            </Principal>
+            <Dependent Role="Personeller">
+              <PropertyRef Name="MagazaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Magaza1ModelStoreContainer">
+          <EntitySet Name="Kargo" EntityType="Self.Kargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Magaza" EntityType="Self.Magaza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personeller" EntityType="Self.Personeller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Kargo_Urunler" Association="Self.FK_Kargo_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Kargo" EntitySet="Kargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_Magaza" Association="Self.FK_Musteri_Magaza">
+            <End Role="Magaza" EntitySet="Magaza" />
+            <End Role="Musteri" EntitySet="Musteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_Urunler" Association="Self.FK_Musteri_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Musteri" EntitySet="Musteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personeller_Magaza" Association="Self.FK_Personeller_Magaza">
+            <End Role="Magaza" EntitySet="Magaza" />
+            <End Role="Personeller" EntitySet="Personeller" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Magaza1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kargo">
+          <Key>
+            <PropertyRef Name="KargoNo" />
+          </Key>
+          <Property Name="KargoNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KargoAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UrunNo" Type="Int32" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Kargo_Urunler" FromRole="Kargo" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Magaza">
+          <Key>
+            <PropertyRef Name="MagazaNo" />
+          </Key>
+          <Property Name="MagazaNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MagazaAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MagazaAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MagazaTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Musteris" Relationship="Self.FK_Musteri_Magaza" FromRole="Magaza" ToRole="Musteri" />
+          <NavigationProperty Name="Personellers" Relationship="Self.FK_Personeller_Magaza" FromRole="Magaza" ToRole="Personeller" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="MusteriNo" />
+          </Key>
+          <Property Name="MusteriNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MusteriAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UrunNo" Type="Int32" />
+          <Property Name="MagazaNo" Type="Int32" />
+          <NavigationProperty Name="Magaza" Relationship="Self.FK_Musteri_Magaza" FromRole="Musteri" ToRole="Magaza" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Musteri_Urunler" FromRole="Musteri" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Personeller">
+          <Key>
+            <PropertyRef Name="PersonelNo" />
+          </Key>
+          <Property Name="PersonelNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonelAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonelTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MagazaNo" Type="Int32" />
+          <NavigationProperty Name="Magaza" Relationship="Self.FK_Personeller_Magaza" FromRole="Personeller" ToRole="Magaza" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="UrunNo" />
+          </Key>
+          <Property Name="UrunNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UrunAdet" Type="Int32" />
+          <Property Name="UrunMarka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kargoes" Relationship="Self.FK_Kargo_Urunler" FromRole="Urunler" ToRole="Kargo" />
+          <NavigationProperty Name="Musteris" Relationship="Self.FK_Musteri_Urunler" FromRole="Urunler" ToRole="Musteri" />
+        </EntityType>
+        <Association Name="FK_Kargo_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="0..1" />
+          <End Role="Kargo" Type="Self.Kargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="UrunNo" />
+            </Principal>
+            <Dependent Role="Kargo">
+              <PropertyRef Name="UrunNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_Magaza">
+          <End Role="Magaza" Type="Self.Magaza" Multiplicity="0..1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magaza">
+              <PropertyRef Name="MagazaNo" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="MagazaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personeller_Magaza">
+          <End Role="Magaza" Type="Self.Magaza" Multiplicity="0..1" />
+          <End Role="Personeller" Type="Self.Personeller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magaza">
+              <PropertyRef Name="MagazaNo" />
+            </Principal>
+            <Dependent Role="Personeller">
+              <PropertyRef Name="MagazaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="0..1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="UrunNo" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="UrunNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Magaza1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kargoes" EntityType="Self.Kargo" />
+          <EntitySet Name="Magazas" EntityType="Self.Magaza" />
+          <EntitySet Name="Musteris" EntityType="Self.Musteri" />
+          <EntitySet Name="Personellers" EntityType="Self.Personeller" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Urunlers" EntityType="Self.Urunler" />
+          <AssociationSet Name="FK_Kargo_Urunler" Association="Self.FK_Kargo_Urunler">
+            <End Role="Urunler" EntitySet="Urunlers" />
+            <End Role="Kargo" EntitySet="Kargoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_Magaza" Association="Self.FK_Musteri_Magaza">
+            <End Role="Magaza" EntitySet="Magazas" />
+            <End Role="Musteri" EntitySet="Musteris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personeller_Magaza" Association="Self.FK_Personeller_Magaza">
+            <End Role="Magaza" EntitySet="Magazas" />
+            <End Role="Personeller" EntitySet="Personellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_Urunler" Association="Self.FK_Musteri_Urunler">
+            <End Role="Urunler" EntitySet="Urunlers" />
+            <End Role="Musteri" EntitySet="Musteris" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Magaza1ModelStoreContainer" CdmEntityContainer="Magaza1Entities">
+          <EntitySetMapping Name="Kargoes">
+            <EntityTypeMapping TypeName="Magaza1Model.Kargo">
+              <MappingFragment StoreEntitySet="Kargo">
+                <ScalarProperty Name="KargoNo" ColumnName="KargoNo" />
+                <ScalarProperty Name="KargoAd" ColumnName="KargoAd" />
+                <ScalarProperty Name="UrunNo" ColumnName="UrunNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magazas">
+            <EntityTypeMapping TypeName="Magaza1Model.Magaza">
+              <MappingFragment StoreEntitySet="Magaza">
+                <ScalarProperty Name="MagazaNo" ColumnName="MagazaNo" />
+                <ScalarProperty Name="MagazaAd" ColumnName="MagazaAd" />
+                <ScalarProperty Name="MagazaAdres" ColumnName="MagazaAdres" />
+                <ScalarProperty Name="MagazaTelefon" ColumnName="MagazaTelefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteris">
+            <EntityTypeMapping TypeName="Magaza1Model.Musteri">
+              <MappingFragment StoreEntitySet="Musteri">
+                <ScalarProperty Name="MusteriNo" ColumnName="MusteriNo" />
+                <ScalarProperty Name="MusteriAd" ColumnName="MusteriAd" />
+                <ScalarProperty Name="MusteriAdres" ColumnName="MusteriAdres" />
+                <ScalarProperty Name="UrunNo" ColumnName="UrunNo" />
+                <ScalarProperty Name="MagazaNo" ColumnName="MagazaNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personellers">
+            <EntityTypeMapping TypeName="Magaza1Model.Personeller">
+              <MappingFragment StoreEntitySet="Personeller">
+                <ScalarProperty Name="PersonelNo" ColumnName="PersonelNo" />
+                <ScalarProperty Name="PersonelAd" ColumnName="PersonelAd" />
+                <ScalarProperty Name="PersonelAdres" ColumnName="PersonelAdres" />
+                <ScalarProperty Name="PersonelTelefon" ColumnName="PersonelTelefon" />
+                <ScalarProperty Name="MagazaNo" ColumnName="MagazaNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Magaza1Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunlers">
+            <EntityTypeMapping TypeName="Magaza1Model.Urunler">
+              <MappingFragment StoreEntitySet="Urunler">
+                <ScalarProperty Name="UrunNo" ColumnName="UrunNo" />
+                <ScalarProperty Name="UrunAd" ColumnName="UrunAd" />
+                <ScalarProperty Name="UrunAdet" ColumnName="UrunAdet" />
+                <ScalarProperty Name="UrunMarka" ColumnName="UrunMarka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

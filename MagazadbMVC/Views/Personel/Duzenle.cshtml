@@ -1,0 +1,64 @@
+﻿@model MagazadbMVC.Models.Personeller
+
+@{
+    ViewBag.Title = "Duzenle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Duzenle</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken() //güvenli kaydetme
+
+    <div class="form-horizontal"></div>
+    <h3> Personeller Düzenleme Sayfası</h3>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) //kontrol amaçlı
+    @Html.HiddenFor(model => model.PersonelAd) //araba numrası gizle
+    <div class="form-group">
+        @Html.LabelFor(model => model.PersonelAd, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PersonelAd, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PersonelAd, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PersonelAdres, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PersonelAdres, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PersonelAdres, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PersonelTelefon, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PersonelTelefon, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PersonelTelefon, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MagazaNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MagazaNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MagazaNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="EKLE" class="btn btn-danger" />
+
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("ANASAYFA", "Index", null, new { @class = "btn btn-danger" +
+    "" }) @*anasayfaya git*@
+</div>
+

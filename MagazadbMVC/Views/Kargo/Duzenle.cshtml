@@ -1,0 +1,45 @@
+﻿@model MagazadbMVC.Models.Kargo
+
+@{
+    ViewBag.Title = "Duzenle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Duzenle</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken() //güvenli kaydetme
+
+    <div class="form-horizontal"></div>
+    <h3> Kargo Düzenleme Sayfası</h3>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) //kontrol amaçlı
+    @Html.HiddenFor(model => model.KargoAd) //araba numrası gizle
+    <div class="form-group">
+        @Html.LabelFor(model => model.KargoAd, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.KargoAd, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.KargoAd, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UrunNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UrunNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UrunNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="create" class="btn btn-danger" />
+
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Home", "Index", null, new { @class = "btn btn-danger" }) @*anasayfaya git*@
+</div>
+

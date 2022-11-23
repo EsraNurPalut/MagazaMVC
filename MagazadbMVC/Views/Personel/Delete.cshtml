@@ -1,0 +1,49 @@
+﻿@model MagazadbMVC.Models.Personeller
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Personeller</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonelAd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonelAd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonelAdres)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonelAdres)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonelTelefon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonelTelefon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MagazaNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MagazaNo)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="SİL" class="btn btn-danger" />
+            @Html.ActionLink("LİSTELE", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    }
+</div>
+

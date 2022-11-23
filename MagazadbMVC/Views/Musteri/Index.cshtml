@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MagazadbMVC.Models.Musteri>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<br />
+<br />
+<h2> MÜŞTERİLER </h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered col-md-11  ">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MusteriAd)
+            </th>
+            <br />
+            <th>
+                @Html.DisplayNameFor(model => model.MusteriAdres)
+            </th>
+            <br />
+            <th>
+                @Html.DisplayNameFor(model => model.UrunNo)
+            </th>
+            <br />
+            <th>
+                @Html.DisplayNameFor(model => model.MagazaNo)
+            </th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.MusteriAd)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.MusteriAdres)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.UrunNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.MagazaNo)
+                </td>
+                <td>
+                    @Html.ActionLink("Düzenle ", "Duzenle", new { musterino = item.MusteriNo }, new { @class = "btn btn-danger" }) &nbsp;
+                    @Html.ActionLink("Sil ", "Delete", new { id = item.MusteriNo }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.ActionLink("KAYDET", "Ekle", null, new { @class = "btn btn-danger" })
+
+</div>
+
